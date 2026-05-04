@@ -1,0 +1,12 @@
+cat <<EOT > .gitignore
+.DS_Store
+__pycache__/
+dataset/
+scanned_data/
+test/
+*.jpg
+*.png
+*.json
+*.pyc
+*.pyo
+EOT
