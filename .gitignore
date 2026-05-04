@@ -9,4 +9,6 @@ test/
 *.json
 *.pyc
 *.pyo
-EOT
+*.h5
+*.pt
+EOTgit add .gitignore
