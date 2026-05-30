@@ -160,4 +160,25 @@ Nếu bạn đồng ý, tôi có thể:
 - Hoặc cập nhật README ngay (tôi sẽ tạo PR nếu bạn cho phép).
 
 Bạn muốn tôi tạo PR cập nhật README không?
+
+Nếu bạn chỉ muốn dùng app trên máy tính (có giao diện cửa sổ):
+
+bash
+python -m src.gui.app
+2. Lệnh chạy Website (Cần chạy cả BE và FE song song)
+Để Website hoạt động và quét được ảnh, bạn bắt buộc phải mở 2 tab Terminal và chạy 2 lệnh này cùng lúc:
+
+Tab Terminal 1 - Chạy Backend (API Server): Đây là bộ não AI nhận ảnh từ web và trả về kết quả.
+
+bash
+uvicorn src.api.main:app --reload --host 0.0.0.0 --port 8000
+Tab Terminal 2 - Chạy Frontend (Giao diện Web): Đây là phần giao diện siêu đẹp hiển thị trên trình duyệt.
+
+bash
+cd frontend
+npm run dev
+
+
+
+
 # CLASSIFICATION_GREEN

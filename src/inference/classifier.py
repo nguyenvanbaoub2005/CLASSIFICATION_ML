@@ -37,17 +37,17 @@ class WasteClassifier:
         # Load model
         self.model_type = 'cnn' # Mặc định là CNN
         if model_path and os.path.exists(model_path):
-            print(f"📂 Đang load model từ: {model_path}")
+            pass
             if model_path.endswith('.pkl'):
                 self.model_data = joblib.load(model_path)
                 self.model = self.model_data['model']
                 self.scaler = self.model_data['scaler']
                 self.model_type = 'svm'
-                print("✅ Đã load model SVM (.pkl) thành công!")
+                pass
             else:
                 self.model = keras.models.load_model(model_path)
                 self.model_type = 'cnn'
-                print("✅ Đã load model CNN (.h5) thành công!")
+                pass
         else:
             print("⚠️  Model chưa được huấn luyện - Sử dụng model mới")
             self.model = create_waste_classifier_model()
@@ -88,9 +88,9 @@ class WasteClassifier:
         return img_array
     
     def extract_svm_features(self, img_pil):
-        """Trích xuất đặc trưng cho SVM (Color Hist 64 bins + 8x8 Pixels)"""
+        """Trích xuất đặc trưng cho SVM/Ensemble (Màu sắc HSV + Hình khối HOG)"""
         img = np.array(img_pil)
-        # 1. Color Histogram (HSV) - 64 bins để tăng độ chính xác
+        # 1. Color Histogram (HSV)
         hsv = cv2.cvtColor(img, cv2.COLOR_RGB2HSV)
         h_hist = cv2.calcHist([hsv], [0], None, [64], [0, 180])
         s_hist = cv2.calcHist([hsv], [1], None, [64], [0, 256])
@@ -98,10 +98,20 @@ class WasteClassifier:
         hist_features = np.concatenate([h_hist, s_hist, v_hist]).flatten()
         cv2.normalize(hist_features, hist_features)
         
-        # 2. Small Pixels (8x8)
-        small_img = cv2.resize(img, (8, 8)).flatten() / 255.0
+        # 2. HOG Features (Góc cạnh, hình khối)
+        img_resized = cv2.resize(img, (64, 64))
+        gray = cv2.cvtColor(img_resized, cv2.COLOR_RGB2GRAY)
         
-        features = np.concatenate([hist_features, small_img])
+        hog = cv2.HOGDescriptor(
+            _winSize=(64, 64),
+            _blockSize=(16, 16),
+            _blockStride=(8, 8),
+            _cellSize=(8, 8),
+            _nbins=9
+        )
+        hog_features = hog.compute(gray).flatten()
+        
+        features = np.concatenate([hist_features, hog_features])
         return self.scaler.transform([features])
 
     def predict(self, image_path, return_all=True):

@@ -1,14 +1,37 @@
-cat <<EOT > .gitignore
-.DS_Store
+# Python
 __pycache__/
+*.py[cod]
+*$py.class
+.venv/
+env/
+venv/
+.env
+
+# Models & Data (Heavy files)
 dataset/
+dataset2/
 scanned_data/
-test/
-*.jpg
-*.png
-*.json
-*.pyc
-*.pyo
+outputs/
 *.h5
 *.pt
-EOTgit add .gitignore
+*.onnx
+*.pb
+*.tflite
+
+# Logs & Temporary files
+logs/
+*.log
+.DS_Store
+temp_manual.jpg
+training_history.png
+scan_history.json
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.env
+frontend/.DS_Store
+
+# IDEs
+.vscode/
+.idea/

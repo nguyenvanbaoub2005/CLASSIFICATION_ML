@@ -1,0 +1,80 @@
+STT,File,Class,Class_VI,Confidence,Status
+1,plastic193.jpg,plastic,Nhựa,99.45,High
+2,plastic150.jpg,plastic,Nhựa,67.56,Low
+3,plastic8.jpg,plastic,Nhựa,98.30,High
+4,plastic232.jpg,plastic,Nhựa,99.31,High
+5,plastic9.jpg,metal,Kim loại,53.60,Low
+6,plastic184.jpg,plastic,Nhựa,88.97,High
+7,plastic190.jpg,plastic,Nhựa,78.71,High
+8,plastic225.jpg,plastic,Nhựa,95.81,High
+9,plastic218.jpg,plastic,Nhựa,98.46,High
+10,plastic48.jpg,plastic,Nhựa,98.48,High
+11,plastic74.jpg,plastic,Nhựa,98.74,High
+12,plastic156.jpg,plastic,Nhựa,92.49,High
+13,plastic58.jpg,plastic,Nhựa,92.64,High
+14,plastic70.jpg,plastic,Nhựa,92.09,High
+15,plastic65.jpg,plastic,Nhựa,93.79,High
+16,plastic180.jpg,plastic,Nhựa,98.12,High
+17,plastic169.jpg,plastic,Nhựa,74.60,High
+18,plastic237.jpg,plastic,Nhựa,94.96,High
+19,plastic222.jpg,plastic,Nhựa,95.29,High
+20,plastic66.jpg,plastic,Nhựa,94.44,High
+21,plastic140.jpg,plastic,Nhựa,61.02,Low
+22,plastic168.jpg,plastic,Nhựa,96.87,High
+23,plastic183.jpg,plastic,Nhựa,96.92,High
+24,plastic127.jpg,plastic,Nhựa,79.75,High
+25,plastic15.jpg,plastic,Nhựa,98.41,High
+26,plastic29.jpg,plastic,Nhựa,62.08,Low
+27,plastic14.jpg,plastic,Nhựa,89.72,High
+28,plastic126.jpg,plastic,Nhựa,97.56,High
+29,plastic17.jpg,plastic,Nhựa,95.41,High
+30,plastic119.jpg,plastic,Nhựa,94.81,High
+31,plastic109.jpg,trash,Rác thải thông thường,33.68,Low
+32,plastic121.jpg,plastic,Nhựa,98.65,High
+33,plastic12.jpg,plastic,Nhựa,72.02,High
+34,plastic134.jpg,plastic,Nhựa,99.71,High
+35,plastic120.jpg,plastic,Nhựa,50.45,Low
+36,plastic38.jpg,plastic,Nhựa,99.97,High
+37,plastic39.jpg,plastic,Nhựa,95.46,High
+38,plastic137.jpg,plastic,Nhựa,93.28,High
+39,plastic112.jpg,metal,Kim loại,43.13,Low
+40,plastic113.jpg,plastic,Nhựa,82.63,High
+41,plastic114.jpg,glass,Thủy tinh,71.75,High
+42,plastic32.jpg,plastic,Nhựa,99.91,High
+43,plastic115.jpg,plastic,Nhựa,90.01,High
+44,plastic129.jpg,plastic,Nhựa,99.16,High
+45,plastic103.jpg,plastic,Nhựa,79.74,High
+46,plastic116.jpg,plastic,Nhựa,90.12,High
+47,plastic165.jpg,plastic,Nhựa,79.69,High
+48,plastic159.jpg,plastic,Nhựa,98.98,High
+49,plastic94.jpg,plastic,Nhựa,83.20,High
+50,plastic80.jpg,plastic,Nhựa,99.51,High
+51,plastic1.jpg,glass,Thủy tinh,82.42,High
+52,plastic212.jpg,plastic,Nhựa,98.49,High
+53,plastic95.jpg,glass,Thủy tinh,89.15,High
+54,plastic164.jpg,glass,Thủy tinh,84.22,High
+55,plastic170.jpg,metal,Kim loại,40.75,Low
+56,plastic40.jpg,glass,Thủy tinh,92.73,High
+57,plastic210.jpg,plastic,Nhựa,92.49,High
+58,plastic204.jpg,plastic,Nhựa,99.42,High
+59,plastic69.jpg,plastic,Nhựa,64.99,Low
+60,plastic3.jpg,plastic,Nhựa,90.87,High
+61,plastic173.jpg,plastic,Nhựa,79.11,High
+62,plastic167.jpg,plastic,Nhựa,95.92,High
+63,plastic177.jpg,plastic,Nhựa,79.51,High
+64,plastic86.jpg,plastic,Nhựa,62.61,Low
+65,plastic79.jpg,plastic,Nhựa,98.89,High
+66,plastic51.jpg,plastic,Nhựa,98.69,High
+67,plastic200.jpg,glass,Thủy tinh,52.25,Low
+68,plastic50.jpg,plastic,Nhựa,93.15,High
+69,plastic93.jpg,plastic,Nhựa,78.66,High
+70,plastic162.jpg,plastic,Nhựa,97.52,High
+71,plastic160.jpg,plastic,Nhựa,98.11,High
+72,plastic4.jpg,glass,Thủy tinh,45.80,Low
+73,plastic91.jpg,plastic,Nhựa,98.88,High
+74,plastic217.jpg,plastic,Nhựa,99.45,High
+75,plastic203.jpg,plastic,Nhựa,98.15,High
+76,plastic84.jpg,plastic,Nhựa,85.79,High
+77,plastic90.jpg,glass,Thủy tinh,71.85,High
+78,plastic175.jpg,plastic,Nhựa,63.69,Low
+79,plastic149.jpg,plastic,Nhựa,99.78,High

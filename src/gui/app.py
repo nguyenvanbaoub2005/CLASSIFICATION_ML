@@ -4,7 +4,7 @@ File này gồm 6 phần (PART 1/6)
 """
 
 # ==============================
-# 🚀 PART 1 – IMPORT + YOLO WRAPPER + CAMERA CLASSIFIER + ModernButton
+# PART 1 – IMPORT + WRAPPER + CAMERA CLASSIFIER + ModernButton
 # ==============================
 
 import sys
@@ -62,7 +62,7 @@ class YOLODetector:
         self.conf_threshold = conf_threshold
 
         if not _YOLO_AVAILABLE:
-            print("⚠️ ultralytics chưa được cài – fallback MOG2.")
+            print("ultralytics chưa được cài – fallback MOG2.")
             return
 
         # Chọn device
@@ -76,10 +76,10 @@ class YOLODetector:
                 self.device = "cpu"
 
         try:
-            print(f"📦 Load YOLO model: {model_name} (device={self.device})")
+            print(f"Load YOLO model: {model_name} (device={self.device})")
             self.model = YOLO(model_name)
             self.enabled = True
-            print("✅ YOLO đã sẵn sàng!")
+            print("YOLO đã sẵn sàng!")
         except Exception as e:
             print(f"❌ Lỗi load YOLO: {e}")
             self.enabled = False
@@ -168,7 +168,7 @@ class CameraClassifier:
 
 
 # ======================
-# Modern Button – nút UI đẹp kiểu macOS (ĐÃ SỬA)
+# Modern Button – nút UI đẹp kiểu macOS
 # ======================
 
 class ModernButton(tk.Button):
@@ -213,7 +213,7 @@ class ModernButton(tk.Button):
         }
         return lighten_map.get(color, color)
     # ==============================
-# 🚀 PART 2 – CLASS INIT + LOAD MODEL + SETUP UI
+# PART 2 – CLASS INIT + LOAD MODEL + SETUP UI
 # ==============================
 
 class WasteClassifierGUIAdvanced:
@@ -221,7 +221,7 @@ class WasteClassifierGUIAdvanced:
     
     def __init__(self, root):
         self.root = root
-        self.root.title("🌿 Hệ Thống Phân Loại Rác Thải AI")
+        self.root.title("Hệ Thống Phân Loại Rác Thải AI")
 
         # Kích thước window
         sw = self.root.winfo_screenwidth()
@@ -300,7 +300,7 @@ class WasteClassifierGUIAdvanced:
         try:
             self.classifier = WasteClassifier(model_path)
             self.model_loaded = True
-            print("✅ Model đã load!")
+            print("Model đã load!")
         except Exception as e:
             print(f"❌ Lỗi load model: {e}")
             self.model_loaded = False
@@ -330,7 +330,7 @@ class WasteClassifierGUIAdvanced:
 
         title = tk.Label(
             title_frame,
-            text="🌿 Phân Loại Rác Thải Thông Minh",
+            text="Phân Loại Rác Thải Thông Minh",
             font=('Arial', 24, 'bold'),
             bg=self.colors['header'],
             fg=self.colors['primary']
@@ -406,7 +406,7 @@ class WasteClassifierGUIAdvanced:
         # Title
         menu_title = tk.Label(
             sidebar,
-            text="📋 MENU",
+            text="MENU",
             font=('Arial', 14, 'bold'),
             bg=self.colors['card'],
             fg=self.colors['text']
@@ -415,16 +415,16 @@ class WasteClassifierGUIAdvanced:
 
         # Buttons
         buttons = [
-            ("📷 Camera",        self.show_camera_mode,      self.colors['primary']),
-            ("📸 Upload Ảnh",    self.upload_image,          self.colors['info']),
-            # ("📹 Xử Lý Video",   self.process_video,         self.colors['purple']),
+            ("Camera",        self.show_camera_mode,      self.colors['primary']),
+            ("Upload Ảnh",    self.upload_image,          self.colors['info']),
+            # ("Xử Lý Video",   self.process_video,         self.colors['purple']),
             (" Batch",         self.batch_classify,        self.colors['success']),
             (" Training",      self.show_training_panel,   self.colors['orange']),
             (" Fine-tune",     self.incremental_training,  self.colors['purple']),
-            ("🔄 Đổi Mô Hình",  self.change_model,          self.colors['danger']),
+            ("Đổi Mô Hình",  self.change_model,          self.colors['danger']),
             (" Quản Lý Data",  self.show_data_management,  self.colors['warning']),
             (" Thống Kê",      self.show_statistics,       self.colors['info']),
-            ("ℹ Hướng Dẫn",     self.show_guide,            self.colors['secondary']),
+            ("Hướng Dẫn",     self.show_guide,            self.colors['secondary']),
         ]
 
         for text, cmd, color in buttons:
@@ -449,7 +449,7 @@ class WasteClassifierGUIAdvanced:
         # Exit
         tk.Button(
             sidebar,
-            text="🚪 Thoát",
+            text="Thoát",
             bg=self.colors['secondary'],
             fg='black',
             font=('Arial', 11, 'bold'),
@@ -481,7 +481,7 @@ class WasteClassifierGUIAdvanced:
         # Title
         title_label = tk.Label(
             center,
-            text="📷 Camera Phát Hiện & Phân Loại",
+            text="Camera Phát Hiện & Phân Loại",
             font=('Arial', 14, 'bold'),
             bg=self.colors['card'],
             fg=self.colors['text']
@@ -498,7 +498,7 @@ class WasteClassifierGUIAdvanced:
         self.auto_scan_var = tk.BooleanVar(value=False)
         tk.Checkbutton(
             toggle_frame,
-            text="🤖 Tự động quét",
+            text="Tự động quét",
             variable=self.auto_scan_var,
             font=('Arial', 11, 'bold'),
             bg=self.colors['card'],
@@ -519,7 +519,7 @@ class WasteClassifierGUIAdvanced:
         control.pack(pady=(0, 20))
 
         self.btn_start_camera = tk.Button(
-            control, text="▶️ Bật Camera",
+            control, text="Bật Camera",
             bg=self.colors['success'], fg='black', width=15,
             font=('Arial', 11, 'bold'), relief='flat',
             command=self.toggle_camera
@@ -527,7 +527,7 @@ class WasteClassifierGUIAdvanced:
         self.btn_start_camera.pack(side='left', padx=5)
 
         self.btn_scan = tk.Button(
-            control, text="📸 Scan",
+            control, text="Scan",
             bg=self.colors['primary'], fg='black', width=15,
             font=('Arial', 11, 'bold'), relief='flat',
             state='disabled', command=self.manual_scan
@@ -535,7 +535,7 @@ class WasteClassifierGUIAdvanced:
         self.btn_scan.pack(side='left', padx=5)
 
         self.btn_save_frame = tk.Button(
-            control, text="💾 Lưu Frame",
+            control, text="Lưu Frame",
             bg=self.colors['purple'], fg='black', width=15,
             font=('Arial', 11, 'bold'), relief='flat',
             state='disabled', command=self.save_current_frame
@@ -595,7 +595,7 @@ class WasteClassifierGUIAdvanced:
         action.pack(pady=(0, 15))
 
         self.btn_save = tk.Button(
-            action, text="💾 Lưu Kết Quả",
+            action, text="Lưu Kết Quả",
             bg=self.colors['purple'], fg='black', width=16,
             font=('Arial', 11, 'bold'), relief='flat',
             state='disabled', command=self.save_scan_result
@@ -614,7 +614,7 @@ class WasteClassifierGUIAdvanced:
         stats_card.pack(fill='x', padx=20, pady=(0, 20))
 
         tk.Label(
-            stats_card, text="📈 Thống Kê Nhanh",
+            stats_card, text="Thống Kê Nhanh",
             font=('Arial', 12, 'bold'),
             bg='#e7f0ff', fg=self.colors['primary']
         ).pack(pady=(12, 8), padx=15, anchor='w')
@@ -632,7 +632,7 @@ class WasteClassifierGUIAdvanced:
         return right
 
     # ==============================
-# 🚀 PART 4 – CAMERA CONTROL + DETECTION + CLASSIFICATION
+# PART 4 – CAMERA CONTROL + DETECTION + CLASSIFICATION
 # ==============================
 
     # =========================================================
@@ -657,7 +657,7 @@ class WasteClassifierGUIAdvanced:
         self.cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
 
         self.camera_running = True
-        self.btn_start_camera.config(text="⏹️ Tắt Camera", bg=self.colors['danger'])
+        self.btn_start_camera.config(text="Tắt Camera", bg=self.colors['danger'])
         self.btn_scan.config(state='normal')
         self.btn_save_frame.config(state='normal')
 
@@ -672,7 +672,7 @@ class WasteClassifierGUIAdvanced:
         if self.cap:
             self.cap.release()
 
-        self.btn_start_camera.config(text="▶️ Bật Camera", bg=self.colors['success'])
+        self.btn_start_camera.config(text="Bật Camera", bg=self.colors['success'])
         self.btn_scan.config(state='disabled')
         self.btn_save_frame.config(state='disabled')
         self.video_frame.config(image='')
@@ -680,9 +680,9 @@ class WasteClassifierGUIAdvanced:
     def toggle_auto_scan(self):
         self.auto_scan = self.auto_scan_var.get()
         if self.auto_scan:
-            print("🤖 Bật auto scan")
+            print("Bật auto scan")
         else:
-            print("⏸️ Tắt auto scan")
+            print("Tắt auto scan")
 
     # =========================================================
     # OBJECT DETECTION (YOLO → MOG2 fallback)
@@ -872,8 +872,8 @@ class WasteClassifierGUIAdvanced:
         """Hiển thị thông báo camera mode"""
         messagebox.showinfo(
             "Camera Mode",
-            "📷 Chế độ camera đang hiển thị ở màn hình chính!\n\n"
-            "• Nhấn '▶️ Bật Camera' để bắt đầu\n"
+            "Chế độ camera đang hiển thị ở màn hình chính!\n\n"
+            "• Nhấn 'Bật Camera' để bắt đầu\n"
             "• Bật 'Tự động quét' để scan liên tục\n"
             "• Khung xanh tự động theo dõi vật thể"
         )
@@ -908,7 +908,7 @@ class WasteClassifierGUIAdvanced:
         ts = datetime.now().strftime("%Y%m%d_%H%M%S")
         filename = f"frame_{ts}.jpg"
         cv2.imwrite(filename, self.current_frame)
-        messagebox.showinfo("Thành công", f"✅ Đã lưu: {filename}")
+        messagebox.showinfo("Thành công", f"Đã lưu: {filename}")
 
     # =========================================================
     # CLASSIFY ASYNC (AUTO SCAN)
@@ -978,12 +978,12 @@ class WasteClassifierGUIAdvanced:
         self.result_text.insert(tk.END, f"({predicted_class})\n\n", 'info')
 
         # ---- Confidence ----
-        self.result_text.insert(tk.END, "🎯 Độ Tin Cậy: ", 'bold')
+        self.result_text.insert(tk.END, "Độ Tin Cậy: ", 'bold')
 
         if result['is_confident']:
-            self.result_text.insert(tk.END, f"{confidence:.1f}%  ✅\n", 'success')
+            self.result_text.insert(tk.END, f"{confidence:.1f}%  \n", 'success')
         else:
-            self.result_text.insert(tk.END, f"{confidence:.1f}%  ⚠️\n", 'warning')
+            self.result_text.insert(tk.END, f"{confidence:.1f}%  \n", 'warning')
 
         # Progress bar (ASCII)
         bar_len = int(confidence / 2)
@@ -991,11 +991,11 @@ class WasteClassifierGUIAdvanced:
         self.result_text.insert(tk.END, f"{bar}\n\n")
 
         # ---- Hướng dẫn xử lý ----
-        self.result_text.insert(tk.END, "♻️  Cách xử lý:\n", 'bold')
+        self.result_text.insert(tk.END, " Cách xử lý:\n", 'bold')
         self.result_text.insert(tk.END, f"   {info['disposal']}\n\n")
 
         # ---- Ví dụ ----
-        self.result_text.insert(tk.END, "📝 Ví dụ:\n", 'bold')
+        self.result_text.insert(tk.END, "Ví dụ:\n", 'bold')
         self.result_text.insert(tk.END, f"   {', '.join(info['examples'])}\n\n")
 
         # ---- Giá trị tái chế ----
@@ -1006,7 +1006,7 @@ class WasteClassifierGUIAdvanced:
         self.result_text.insert(tk.END, "─" * 55 + "\n\n")
 
         # ---- Detailed Probabilities ----
-        self.result_text.insert(tk.END, "📊 Chi Tiết Các Xác Suất:\n\n", 'bold')
+        self.result_text.insert(tk.END, "Chi Tiết Các Xác Suất:\n\n", 'bold')
 
         sorted_preds = sorted(
             result['all_predictions'].items(),
@@ -1023,7 +1023,7 @@ class WasteClassifierGUIAdvanced:
 
         self.result_text.config(state='disabled')
     # ==============================
-# 🚀 PART 5 – IMAGE/VIDEO/BATCH + TRAINING + DATA MANAGEMENT
+# PART 5 – IMAGE/VIDEO/BATCH + TRAINING + DATA MANAGEMENT
 # ==============================
 
     # =========================================================
@@ -1104,7 +1104,7 @@ class WasteClassifierGUIAdvanced:
             cam_classifier.classify_video_file(video_path, output_path)
 
             self.root.after(0, lambda:
-                messagebox.showinfo("Thành công", "✔ Đã xử lý video!")
+                messagebox.showinfo("Thành công", "Đã xử lý video!")
             )
         except Exception as e:
             self.root.after(0, lambda:
@@ -1196,16 +1196,16 @@ class WasteClassifierGUIAdvanced:
         self.save_scan_history()
         self.update_statistics()
 
-        messagebox.showinfo("Thành công", f"✅ Đã lưu kết quả!\n\n{save_path}")
+        messagebox.showinfo("Thành công", f"Đã lưu kết quả!\n\n{save_path}")
         self.btn_save.config(state='disabled')
 
     # =========================================================
     # BATCH RESULT UI + SAVE CSV
     # =========================================================
     def show_batch_results(self, results):
-        """Cửa sổ hiển thị kết quả batch"""
+        """Cửa sổ hiển thị kết quả batch dạng Grid hình ảnh"""
         window = tk.Toplevel(self.root)
-        window.title("📁 Kết Quả Phân Loại Batch")
+        window.title("Kết Quả Phân Loại Batch")
         window.geometry("1100x750")
         window.configure(bg=self.colors['bg'])
 
@@ -1216,47 +1216,77 @@ class WasteClassifierGUIAdvanced:
 
         tk.Label(
             header,
-            text="📊 Kết Quả Phân Loại Batch",
+            text="Kết Quả Phân Loại Batch",
             font=('SF Pro Display', 20, 'bold'),
             bg=self.colors['card'],
             fg=self.colors['primary']
         ).pack(pady=20)
 
-        # Treeview
+        # Khung cuộn (Scrollable Grid)
         frame = tk.Frame(window, bg=self.colors['bg'])
         frame.pack(fill='both', expand=True, padx=30, pady=20)
 
-        columns = ('STT', 'File', 'Loại', 'Confidence', 'Status')
-        tree = ttk.Treeview(frame, columns=columns, show='headings', height=22)
+        canvas = tk.Canvas(frame, bg=self.colors['bg'], highlightthickness=0)
+        scrollbar = ttk.Scrollbar(frame, orient="vertical", command=canvas.yview)
+        scrollable_frame = tk.Frame(canvas, bg=self.colors['bg'])
 
-        for col in columns:
-            tree.heading(col, text=col)
+        scrollable_frame.bind(
+            "<Configure>",
+            lambda e: canvas.configure(scrollregion=canvas.bbox("all"))
+        )
 
-        tree.column('STT', width=60)
-        tree.column('File', width=400)
-        tree.column('Loại', width=250)
-        tree.column('Confidence', width=130)
-        tree.column('Status', width=100)
+        canvas.create_window((0, 0), window=scrollable_frame, anchor="nw")
+        canvas.configure(yscrollcommand=scrollbar.set)
 
-        for i, item in enumerate(results, 1):
+        canvas.pack(side="left", fill="both", expand=True)
+        scrollbar.pack(side="right", fill="y")
+
+        # Bắt sự kiện lăn chuột an toàn cho macOS/Windows
+        def _on_mousewheel(event):
+            # Với macOS event.delta thường nhỏ, với Windows thường là bội số của 120
+            delta = -1 if event.delta < 0 else 1
+            if sys.platform == 'darwin':
+                canvas.yview_scroll(int(-1 * event.delta), "units")
+            else:
+                canvas.yview_scroll(int(-1 * (event.delta / 120)), "units")
+                
+        def _bind_mouse(e):
+            canvas.bind_all("<MouseWheel>", _on_mousewheel)
+        def _unbind_mouse(e):
+            canvas.unbind_all("<MouseWheel>")
+            
+        canvas.bind("<Enter>", _bind_mouse)
+        canvas.bind("<Leave>", _unbind_mouse)
+
+        # Cần biến này để giữ hình ảnh không bị bộ thu gom rác (GC) xoá
+        self._batch_images = []
+
+        columns_count = 4
+        for i, item in enumerate(results):
+            row = i // columns_count
+            col = i % columns_count
+
+            card = tk.Frame(scrollable_frame, bg=self.colors['card'], highlightbackground=self.colors['border'], highlightthickness=1)
+            card.grid(row=row, column=col, padx=15, pady=15, sticky="nsew")
+
             result = item['result']
-            filename = os.path.basename(item['image'])
             icon = CLASS_INFO[result['class']]['icon']
-            status = "✅ Cao" if result['is_confident'] else "⚠️ Thấp"
 
-            tree.insert('', 'end', values=(
-                i,
-                filename,
-                f"{icon} {result['class_name_vi']}",
-                f"{result['confidence']:.1f}%",
-                status
-            ))
+            try:
+                img = Image.open(item['image'])
+                # Cắt/Thu nhỏ ảnh về hình vuông 200x200
+                img.thumbnail((220, 220), Image.Resampling.LANCZOS)
+                imgtk = ImageTk.PhotoImage(img)
+                self._batch_images.append(imgtk)
+                
+                img_lbl = tk.Label(card, image=imgtk, bg=self.colors['card'])
+                img_lbl.pack(padx=10, pady=(10, 5))
+            except Exception as e:
+                tk.Label(card, text="Lỗi hiển thị ảnh", bg=self.colors['card']).pack(pady=20)
 
-        scrollbar = ttk.Scrollbar(frame, orient='vertical', command=tree.yview)
-        tree.configure(yscroll=scrollbar.set)
-
-        tree.pack(side='left', fill='both', expand=True)
-        scrollbar.pack(side='right', fill='y')
+            # Text Nhãn và Độ tin cậy
+            tk.Label(card, text=f"{icon} {result['class_name_vi']}", font=('Arial', 12, 'bold'), bg=self.colors['card'], fg=self.colors['text']).pack()
+            tk.Label(card, text=f"{result['confidence']:.1f}%", font=('Arial', 10), bg=self.colors['card'], fg=self.colors['primary']).pack(pady=(0, 10))
 
         # Buttons
         btn_frame = tk.Frame(window, bg=self.colors['bg'])
@@ -1264,7 +1294,7 @@ class WasteClassifierGUIAdvanced:
 
         ModernButton(
             btn_frame,
-            text="💾 Lưu CSV",
+            text="Lưu CSV",
             bg=self.colors['primary'],
             fg='white',
             command=lambda: self.save_batch_csv(results)
@@ -1272,11 +1302,19 @@ class WasteClassifierGUIAdvanced:
 
         ModernButton(
             btn_frame,
-            text="🚪 Đóng",
+            text="Đóng",
             bg=self.colors['secondary'],
             fg='white',
             command=window.destroy
         ).pack(side='left', padx=10)
+
+        def _on_closing():
+            try:
+                canvas.unbind_all("<MouseWheel>")
+            except:
+                pass
+            window.destroy()
+        window.protocol("WM_DELETE_WINDOW", _on_closing)
 
     def save_batch_csv(self, results):
         """Lưu kết quả batch ra file CSV"""
@@ -1306,7 +1344,7 @@ class WasteClassifierGUIAdvanced:
                         status
                     ])
 
-            messagebox.showinfo("Thành công", f"✅ Đã lưu: {file_path}")
+            messagebox.showinfo("Thành công", f"Đã lưu: {file_path}")
         except Exception as e:
             messagebox.showerror("Lỗi", f"Lỗi lưu CSV: {str(e)}")
 
@@ -1316,7 +1354,7 @@ class WasteClassifierGUIAdvanced:
     def show_training_panel(self):
         """Cửa sổ cấu hình training model mới"""
         window = tk.Toplevel(self.root)
-        window.title("🎓 Training Model")
+        window.title("Training Model")
         window.geometry("900x700")
         window.configure(bg=self.colors['bg'])
 
@@ -1327,7 +1365,7 @@ class WasteClassifierGUIAdvanced:
 
         tk.Label(
             header,
-            text="🎓 Training Model Mới",
+            text="Training Model Mới",
             font=('SF Pro Display', 22, 'bold'),
             bg=self.colors['card'],
             fg=self.colors['primary']
@@ -1350,7 +1388,7 @@ class WasteClassifierGUIAdvanced:
         # Train dir
         tk.Label(
             form,
-            text="📁 Thư mục Training:",
+            text="Thư mục Training:",
             font=('SF Pro Text', 12),
             bg=self.colors['card'],
             fg=self.colors['text']
@@ -1379,7 +1417,7 @@ class WasteClassifierGUIAdvanced:
         # Val dir
         tk.Label(
             form,
-            text="📁 Thư mục Validation:",
+            text="Thư mục Validation:",
             font=('SF Pro Text', 12),
             bg=self.colors['card'],
             fg=self.colors['text']
@@ -1408,7 +1446,7 @@ class WasteClassifierGUIAdvanced:
         # Epochs
         tk.Label(
             form,
-            text="⏱️ Số Epochs:",
+            text="Số Epochs:",
             font=('SF Pro Text', 12),
             bg=self.colors['card'],
             fg=self.colors['text']
@@ -1428,7 +1466,7 @@ class WasteClassifierGUIAdvanced:
         transfer_var = tk.BooleanVar(value=True)
         tk.Checkbutton(
             form,
-            text="🔄 Sử dụng Transfer Learning",
+            text="Sử dụng Transfer Learning",
             variable=transfer_var,
             font=('SF Pro Text', 12),
             bg=self.colors['card'],
@@ -1440,7 +1478,7 @@ class WasteClassifierGUIAdvanced:
         # Button start
         ModernButton(
             form,
-            text="🚀 Bắt Đầu Training",
+            text="Bắt Đầu Training",
             bg=self.colors['success'],
             fg='white',
             width=25,
@@ -1483,7 +1521,7 @@ class WasteClassifierGUIAdvanced:
 
             self.root.after(
                 0,
-                lambda: messagebox.showinfo("Thành công", "✅ Training hoàn tất!")
+                lambda: messagebox.showinfo("Thành công", "Training hoàn tất!")
             )
         except Exception as e:
             self.root.after(
@@ -1508,7 +1546,7 @@ class WasteClassifierGUIAdvanced:
 
         if messagebox.askyesno(
             "Xác nhận",
-            f"✅ Dữ liệu sẵn sàng!\n\nTổng: {stats['total']} mẫu\nBắt đầu training?"
+            f"Dữ liệu sẵn sàng!\n\nTổng: {stats['total']} mẫu\nBắt đầu training?"
         ):
             threading.Thread(
                 target=self.incremental_training_thread,
@@ -1526,7 +1564,7 @@ class WasteClassifierGUIAdvanced:
 
             self.root.after(
                 0,
-                lambda: messagebox.showinfo("Thành công", "✅ Incremental training hoàn tất!")
+                lambda: messagebox.showinfo("Thành công", "Incremental training hoàn tất!")
             )
         except Exception as e:
             self.root.after(
@@ -1534,7 +1572,7 @@ class WasteClassifierGUIAdvanced:
                 lambda: messagebox.showerror("Lỗi", f"Lỗi incremental training: {e}")
             )
     # ==============================
-# 🚀 PART 6 – DATA MANAGEMENT + HISTORY + STATS + GUIDE + MAIN (FINAL)
+# PART 6 – DATA MANAGEMENT + HISTORY + STATS + GUIDE + MAIN (FINAL)
 # ==============================
 
     # =========================================================
@@ -1543,7 +1581,7 @@ class WasteClassifierGUIAdvanced:
     def show_data_management(self):
         """Quản lý dữ liệu"""
         window = tk.Toplevel(self.root)
-        window.title("📊 Quản Lý Dữ Liệu")
+        window.title("Quản Lý Dữ Liệu")
         window.geometry("1000x750")
         window.configure(bg=self.colors['bg'])
         
@@ -1586,11 +1624,11 @@ Tỷ lệ: {stats['high_confidence']/stats['total']*100 if stats['total'] > 0 el
         btn_frame = tk.Frame(window, bg=self.colors['bg'])
         btn_frame.pack(pady=20)
         
-        ModernButton(btn_frame, text="📦 Chuẩn Bị", bg=self.colors['primary'], fg='white',
+        ModernButton(btn_frame, text="Chuẩn Bị", bg=self.colors['primary'], fg='white',
                     command=self.prepare_dataset).pack(side='left', padx=8)
-        ModernButton(btn_frame, text="📤 Export", bg=self.colors['success'], fg='white',
+        ModernButton(btn_frame, text="Export", bg=self.colors['success'], fg='white',
                     command=self.export_high_quality).pack(side='left', padx=8)
-        ModernButton(btn_frame, text="🗑️ Xóa", bg=self.colors['danger'], fg='white',
+        ModernButton(btn_frame, text="Xóa", bg=self.colors['danger'], fg='white',
                     command=self.clean_low_quality).pack(side='left', padx=8)
 
     def prepare_dataset(self):
@@ -1598,7 +1636,7 @@ Tỷ lệ: {stats['high_confidence']/stats['total']*100 if stats['total'] > 0 el
         if messagebox.askyesno("Xác nhận", "Chuẩn bị dữ liệu cho training?"):
             try:
                 self.data_manager.prepare_training_data(min_confidence=80)
-                messagebox.showinfo("Thành công", "✅ Đã chuẩn bị dataset!")
+                messagebox.showinfo("Thành công", "Đã chuẩn bị dataset!")
             except Exception as e:
                 messagebox.showerror("Lỗi", f"{e}")
     
@@ -1608,16 +1646,16 @@ Tỷ lệ: {stats['high_confidence']/stats['total']*100 if stats['total'] > 0 el
         if output_dir:
             try:
                 self.data_manager.export_high_quality_data(output_dir, min_confidence=90)
-                messagebox.showinfo("Thành công", f"✅ Đã export!")
+                messagebox.showinfo("Thành công", f"Đã export!")
             except Exception as e:
                 messagebox.showerror("Lỗi", f"{e}")
     
     def clean_low_quality(self):
         """Xóa chất lượng thấp"""
-        if messagebox.askyesno("Cảnh báo", "⚠️ Xóa ảnh ≤60%? Không thể hoàn tác!"):
+        if messagebox.askyesno("Cảnh báo", "Xóa ảnh ≤60%? Không thể hoàn tác!"):
             try:
                 self.data_manager.clean_low_quality_data(max_confidence=60)
-                messagebox.showinfo("Thành công", "✅ Đã xóa!")
+                messagebox.showinfo("Thành công", "Đã xóa!")
                 self.update_statistics()
             except Exception as e:
                 messagebox.showerror("Lỗi", f"{e}")
@@ -1678,7 +1716,7 @@ Tỷ lệ: {stats['high_confidence']/stats['total']*100 if stats['total'] > 0 el
         for i, item in enumerate(reversed(self.scan_history[-50:]), 1):
             cls = item['class']
             icon = CLASS_INFO[cls]['icon']
-            mode = "🤖 Auto" if item.get('is_auto_scan', False) else "👤 Manual"
+            mode = "Auto" if item.get('is_auto_scan', False) else "👤 Manual"
             
             tree.insert('', 'end', values=(
                 i,
@@ -1695,7 +1733,7 @@ Tỷ lệ: {stats['high_confidence']/stats['total']*100 if stats['total'] > 0 el
         
         ModernButton(
             window,
-            text="🚪 Đóng",
+            text="Đóng",
             bg=self.colors['secondary'],
             fg='white',
             command=window.destroy
@@ -1707,14 +1745,14 @@ Tỷ lệ: {stats['high_confidence']/stats['total']*100 if stats['total'] > 0 el
     def show_statistics(self):
         """Thống kê số lượng ảnh theo từng loại"""
         window = tk.Toplevel(self.root)
-        window.title("📊 Thống Kê")
+        window.title("Thống Kê")
         window.geometry("800x600")
         window.configure(bg=self.colors['bg'])
 
         # header
         tk.Label(
             window,
-            text="📊 Thống kê dữ liệu đã lưu",
+            text="Thống kê dữ liệu đã lưu",
             font=("SF Pro Display", 22, "bold"),
             bg=self.colors['bg'],
             fg=self.colors['primary']
@@ -1743,7 +1781,7 @@ Tỷ lệ: {stats['high_confidence']/stats['total']*100 if stats['total'] > 0 el
 
         ModernButton(
             window,
-            text="🚪 Đóng",
+            text="Đóng",
             bg=self.colors['secondary'],
             fg='white',
             command=window.destroy
@@ -1768,9 +1806,9 @@ Tỷ lệ: {stats['high_confidence']/stats['total']*100 if stats['total'] > 0 el
             self.stats_label.config(text="Chưa có dữ liệu")
             return
         
-        text = f"📊 Tổng: {total} lần scan\n"
-        text += f"✅ Tin cậy cao: {high_conf_count}/{total}\n"
-        text += f"🤖 Auto scan: {auto_count}/{total}\n\n"
+        text = f"Tổng: {total} lần scan\n"
+        text += f"Tin cậy cao: {high_conf_count}/{total}\n"
+        text += f"Auto scan: {auto_count}/{total}\n\n"
         
         # Top 3 classes
         sorted_stats = sorted(stats.items(), key=lambda x: x[1], reverse=True)[:3]
@@ -1788,7 +1826,7 @@ Tỷ lệ: {stats['high_confidence']/stats['total']*100 if stats['total'] > 0 el
     def show_guide(self):
         """Hướng dẫn"""
         window = tk.Toplevel(self.root)
-        window.title("ℹ️ Hướng Dẫn")
+        window.title("Hướng Dẫn")
         window.geometry("1000x750")
         window.configure(bg=self.colors['bg'])
         
@@ -1803,43 +1841,43 @@ Tỷ lệ: {stats['high_confidence']/stats['total']*100 if stats['total'] > 0 el
         
         guide = """
 ╔═══════════════════════════════════════════════════════════════╗
-║                    🎯 HƯỚNG DẪN SỬ DỤNG                        ║
+║                    HƯỚNG DẪN SỬ DỤNG                        ║
 ╚═══════════════════════════════════════════════════════════════╝
 
-📷 CAMERA SCAN
+CAMERA SCAN
 ──────────────────────────────────────────────────────────────
-1. Nhấn "▶️ Bật Camera"
+1. Nhấn "Bật Camera"
 2. Đặt vật phẩm vào khung
 3. Hệ thống tự động phát hiện và DI CHUYỂN KHUNG XANH
-4. Bật "🤖 Tự động quét" để scan liên tục (mỗi 2 giây)
-5. Hoặc nhấn "📸 Scan" để scan thủ công
+4. Bật "Tự động quét" để scan liên tục (mỗi 2 giây)
+5. Hoặc nhấn "Scan" để scan thủ công
 6. Xem kết quả bên phải và lưu nếu cần
 
-📸 UPLOAD & BATCH
+UPLOAD & BATCH
 ──────────────────────────────────────────────────────────────
 • Upload: Chọn 1 ảnh để phân loại
 • Batch: Chọn thư mục nhiều ảnh, xem kết quả bảng, lưu CSV
 
-🎓 TRAINING
+TRAINING
 ──────────────────────────────────────────────────────────────
 • Training: Train model mới từ dataset có sẵn
 • Fine-tune: Cập nhật model với dữ liệu đã scan (≥20 mẫu/class)
 
-📊 QUẢN LÝ DỮ LIỆU
+QUẢN LÝ DỮ LIỆU
 ──────────────────────────────────────────────────────────────
 • Xem thống kê dữ liệu đã scan
 • Chuẩn bị dataset (auto chia 80/20)
 • Export dữ liệu chất lượng cao (≥90%)
 • Xóa dữ liệu kém (≤60%)
 
-💡 TIPS
+TIPS
 ──────────────────────────────────────────────────────────────
 ✓ Khung xanh tự động theo dõi vật thể
 ✓ Chỉ lưu ảnh confidence ≥80%
 ✓ Dùng Fine-tune để cải thiện model liên tục
 ✓ Auto scan cooldown 2 giây tránh spam
 
-⚙️ YÊU CẦU HỆ THỐNG
+YÊU CẦU HỆ THỐNG
 ──────────────────────────────────────────────────────────────
 • Python 3.7+
 • TensorFlow 2.x
@@ -1847,7 +1885,7 @@ Tỷ lệ: {stats['high_confidence']/stats['total']*100 if stats['total'] > 0 el
 • Camera (cho real-time)
 
 ──────────────────────────────────────────────────────────────
-Happy Classifying! 🌿
+Happy Classifying! 
 ──────────────────────────────────────────────────────────────
 """
         
@@ -1866,7 +1904,7 @@ Happy Classifying! 🌿
         
         ModernButton(
             window,
-            text="🚪 Đóng",
+            text="Đóng",
             bg=self.colors['secondary'],
             fg='white',
             command=window.destroy
