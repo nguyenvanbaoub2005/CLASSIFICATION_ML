@@ -33,26 +33,45 @@ IMG_SIZE = (128, 128)
 CONFIDENCE_THRESHOLD = 0.55
 
 
+import concurrent.futures
+
+def _process_single_file(f_path, class_idx, use_augment):
+    X_local, y_local = [], []
+    try:
+        img = cv2.imread(f_path)
+        img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+        img = cv2.resize(img, IMG_SIZE)
+        for aug_img in (augment(img) if use_augment else [img]):
+            X_local.append(extract_features(aug_img, use_grabcut=False))
+            y_local.append(class_idx)
+    except Exception:
+        pass
+    return X_local, y_local
+
 def load_data(data_dir: str, use_augment: bool = False):
     X, y = [], []
-    print(f"\n📂 Tải từ: {data_dir}  (augment={use_augment})")
+    print(f"\n📂 Tải từ: {data_dir}  (augment={use_augment}) - Đa luồng (Multi-core)")
     for class_idx, class_name in enumerate(CLASSES):
         class_path = os.path.join(data_dir, class_name)
         if not os.path.exists(class_path):
             print(f"  ⚠️  Bỏ qua: {class_path}")
             continue
+        
         files = [f for f in os.listdir(class_path)
                  if f.lower().endswith(('.png', '.jpg', '.jpeg'))]
-        for f in tqdm(files, desc=f"  {class_name:15s}"):
-            try:
-                img = cv2.imread(os.path.join(class_path, f))
-                img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-                img = cv2.resize(img, IMG_SIZE)
-                for aug_img in (augment(img) if use_augment else [img]):
-                    X.append(extract_features(aug_img, use_grabcut=False))
-                    y.append(class_idx)
-            except Exception:
-                continue
+        file_paths = [os.path.join(class_path, f) for f in files]
+        
+        with concurrent.futures.ProcessPoolExecutor() as executor:
+            futures = [executor.submit(_process_single_file, fp, class_idx, use_augment) 
+                       for fp in file_paths]
+            
+            for future in tqdm(concurrent.futures.as_completed(futures), 
+                               total=len(futures), 
+                               desc=f"  {class_name:15s}", unit="img"):
+                rx, ry = future.result()
+                X.extend(rx)
+                y.extend(ry)
+                
     print(f"  → {len(X)} samples")
     return np.array(X, dtype=np.float32), np.array(y)
 
@@ -75,22 +94,24 @@ def train_ensemble():
     X_vl = scaler.transform(X_val)
 
     # Base models
-    knn = KNeighborsClassifier(n_neighbors=7, weights='distance', metric='cosine')
-    rf  = RandomForestClassifier(n_estimators=200, class_weight='balanced', random_state=42)
+    knn = KNeighborsClassifier(n_neighbors=7, weights='distance', metric='cosine', n_jobs=-1)
+    rf  = RandomForestClassifier(n_estimators=200, class_weight='balanced', random_state=42, n_jobs=-1)
     svm = SVC(kernel='rbf', C=15.0, gamma='scale',
-              class_weight='balanced', probability=True, random_state=42)
+              class_weight='balanced', probability=True, cache_size=2000, random_state=42)
 
     # Ensemble models
     voting = VotingClassifier(
         estimators=[('knn', knn), ('rf', rf), ('svm', svm)],
         voting='soft',
-        weights=[1, 2, 3]   # SVM ưu tiên cao hơn
+        weights=[1, 2, 3],   # SVM ưu tiên cao hơn
+        n_jobs=-1
     )
     stacking = StackingClassifier(
         estimators=[('knn', knn), ('rf', rf), ('svm', svm)],
         final_estimator=LogisticRegression(C=1.0, max_iter=1000,
-                                           class_weight='balanced'),
-        passthrough=True    # meta-learner thấy cả features gốc
+                                           class_weight='balanced', n_jobs=-1),
+        passthrough=True,    # meta-learner thấy cả features gốc
+        n_jobs=-1
     )
 
     models = {

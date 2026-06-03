@@ -11,6 +11,7 @@ import os
 import sys
 import random
 import shutil
+# pyrefly: ignore [missing-import]
 from PIL import Image
 
 # Them thu muc goc vao sys.path de import cau hinh

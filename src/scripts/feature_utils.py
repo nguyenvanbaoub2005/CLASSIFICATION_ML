@@ -1,9 +1,11 @@
 """
 feature_utils.py — Đặt vào: scripts/feature_utils.py
-Bộ trích xuất đặc trưng nâng cao: HSV + HOG + LBP + GrabCut mask
+Bộ trích xuất đặc trưng nâng cao: HSV + HOG + LBP 
 """
 
+# pyrefly: ignore [missing-import]
 import cv2
+# pyrefly: ignore [missing-import]
 import numpy as np
 from skimage.feature import local_binary_pattern
 
@@ -11,7 +13,7 @@ from skimage.feature import local_binary_pattern
 # ─────────────────────────────────────────────
 # FOREGROUND MASK
 # ─────────────────────────────────────────────
-
+#grapcut tách vật thể khỏi nền
 def get_foreground_mask(img: np.ndarray) -> np.ndarray:
     """
     GrabCut khi predict ảnh internet (nền phức tạp).
@@ -57,7 +59,7 @@ def get_ellipse_mask(img: np.ndarray) -> np.ndarray:
 
 def augment(img: np.ndarray) -> list:
     """
-    3 biến thể từ 1 ảnh gốc (giảm từ 7 xuống 3 để tránh overfit).
+    3 biến thể từ 1 ảnh gốc 
     Giữ lại những augment có tác dụng nhất với ảnh rác thực tế.
     """
     h, w = img.shape[:2]
@@ -76,7 +78,7 @@ def augment(img: np.ndarray) -> list:
 # ─────────────────────────────────────────────
 # FEATURE EXTRACTION
 # ─────────────────────────────────────────────
-
+#trích xuất đặc trưng màu sắc
 def _hsv_histogram(img: np.ndarray, mask: np.ndarray) -> np.ndarray:
     hsv = cv2.cvtColor(img, cv2.COLOR_RGB2HSV)
     feats = []
@@ -90,14 +92,33 @@ def _hsv_histogram(img: np.ndarray, mask: np.ndarray) -> np.ndarray:
 
 
 def _hog(img: np.ndarray, mask: np.ndarray) -> np.ndarray:
-    img_m = cv2.bitwise_and(img, img, mask=mask)
-    gray = cv2.cvtColor(cv2.resize(img_m, (64, 64)), cv2.COLOR_RGB2GRAY)
-    hog = cv2.HOGDescriptor(
-        _winSize=(64, 64), _blockSize=(16, 16),
-        _blockStride=(8, 8), _cellSize=(8, 8), _nbins=9
-    )
-    return hog.compute(gray).flatten()   # 1764 dims
+    """
+    Trích xuất đặc trưng HOG.
+    HOG dùng để mô tả cạnh, đường viền và hình dạng của vật thể.
+    """
 
+    # Áp dụng mask để giữ vùng vật thể rác, giảm ảnh hưởng của nền
+    img_m = cv2.bitwise_and(img, img, mask=mask)
+
+    # Resize ảnh về 64x64 và chuyển sang ảnh xám
+    # HOG chỉ cần thông tin sáng/tối để tính cạnh, không cần màu
+    gray = cv2.cvtColor(
+        cv2.resize(img_m, (64, 64)),
+        cv2.COLOR_RGB2GRAY
+    )
+    # Khởi tạo bộ trích xuất HOG
+    # Ảnh 64x64 được chia thành các cell 8x8
+    # Mỗi block 16x16 dùng để chuẩn hóa đặc trưng
+    # nbins=9 nghĩa là hướng cạnh được chia thành 9 nhóm góc
+    hog = cv2.HOGDescriptor(
+        _winSize=(64, 64),
+        _blockSize=(16, 16),
+        _blockStride=(8, 8),
+        _cellSize=(8, 8),
+        _nbins=9
+    )
+    return hog.compute(gray).flatten()
+# Kết quả có 1764 đặc trưng
 
 def _lbp(img: np.ndarray, mask: np.ndarray,
          P: int = 16, R: float = 2.0) -> np.ndarray:
@@ -125,4 +146,4 @@ def extract_features(img: np.ndarray, use_grabcut: bool = False) -> np.ndarray:
         _hsv_histogram(img, mask),
         _hog(img, mask),
         _lbp(img, mask),
-    ]).astype(np.float32)
+    ]).astype(np.float32) 

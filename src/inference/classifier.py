@@ -43,6 +43,11 @@ class WasteClassifier:
                 self.model = self.model_data['model']
                 self.scaler = self.model_data['scaler']
                 self.model_type = 'svm'
+                
+                # Hỗ trợ model v2 (từ train_svm_pure_v2 / train_ensemble_pure_v2)
+                self.img_size = self.model_data.get('img_size', (64, 64))
+                self.feature_type = self.model_data.get('feature_type', 'old')
+                self.use_grabcut = self.model_data.get('use_grabcut_at_predict', False)
                 pass
             else:
                 self.model = keras.models.load_model(model_path)
@@ -88,8 +93,18 @@ class WasteClassifier:
         return img_array
     
     def extract_svm_features(self, img_pil):
-        """Trích xuất đặc trưng cho SVM/Ensemble (Màu sắc HSV + Hình khối HOG)"""
+        """Trích xuất đặc trưng cho SVM/Ensemble (Hỗ trợ cả model v1 và v2)"""
         img = np.array(img_pil)
+        
+        # Hỗ trợ model v2 sử dụng feature_utils.py (HSV + HOG + LBP = 1878 features)
+        if hasattr(self, 'feature_type') and self.feature_type == 'hsv+hog+lbp_v2':
+            from src.scripts.feature_utils import extract_features
+            img_resized = cv2.resize(img, self.img_size)
+            feat = extract_features(img_resized, use_grabcut=self.use_grabcut)
+            return self.scaler.transform([feat])
+            
+        # Code dự phòng cho model cũ (chỉ HSV + HOG = 1956 features)
+        # feature_type = 'old' hoặc 'color_hist'
         # 1. Color Histogram (HSV)
         hsv = cv2.cvtColor(img, cv2.COLOR_RGB2HSV)
         h_hist = cv2.calcHist([hsv], [0], None, [64], [0, 180])
